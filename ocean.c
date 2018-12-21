@@ -36,12 +36,15 @@ void move_one_step(ocean *my_ocean){
 /*Add a boat in the ocean at a given position*/
 void add_boat(ocean *my_ocean, boat *my_boat, int x, int y){
 	initialize_boat();
+	//Placer le bateau
+	//Ajouter le bateau à l'annuaire
+	//Rendre la position du bateau à l'utilisateur
 };
 
 /*Add a rock in the ocean at a given position*/
 void add_rock(ocean *my_ocean, rock *my_rock, int x, int y){
 	initialize_rock();
-	
+	//Rendre la position du caillou
 };
 
 /*Display the whole map with rocks and boats*/

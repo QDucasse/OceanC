@@ -7,7 +7,7 @@ typedef enum {
 
 typedef struct {
     int strength;
-    enum direction d;
+    direction dir;
 } wind;
 
 //Here we declare the prototype of our functions
