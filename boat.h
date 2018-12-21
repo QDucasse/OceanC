@@ -1,29 +1,26 @@
-#include <stdlib.h>
-#include "wind.c"
 #ifndef BOAT_H
 #define BOAT_H
+#include <stdlib.h>
+#include "wind.h"
 
 typedef struct BOAT{
     int pos[2];
     char nom[10];
-    direction d; 
+    direction d;
     int speed;
 } boat;
 
 ///Initialize a boat with a given name, position, direction and speed
 boat *initialize_boat(char* name, int x, int y, direction dir, int spd);
 
-//Estimate a given boat next position
+//Estimate a given boat's next position, taking the wind into consideration
 int *estimate(boat *my_boat, wind *wind);
-//Calcule la future position du bateau
 
 //Change direction into the one wished
 void change_direction(boat *my_boat, direction dir);
-//Résulte en un changement de cap
 
 //Change direction from the current one
 void turn_left(boat *my_boat);
-//Résulte en un changement de cap
 
 //Change boat speed 
 void change_speed(boat *my_boat,int speed); 
@@ -31,5 +28,8 @@ void change_speed(boat *my_boat,int speed);
 
 //Displays the boat's direction
 void affdir(boat *my_boat);
+
+//Update the boat's speed
+void Up_speed(boat *my_boat, wind *wind);
 
 #endif
