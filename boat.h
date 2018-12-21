@@ -1,10 +1,7 @@
 #include <stdlib.h>
+#include "wind.c"
 #ifndef BOAT_H
 #define BOAT_H
-
-typedef enum {
-    NORTH,EAST,SOUTH,WEST
-}direction;
 
 typedef struct BOAT{
     int pos[2];
@@ -16,11 +13,9 @@ typedef struct BOAT{
 ///Initialize a boat with a given name, position, direction and speed
 boat *initialize_boat(char* name, int x, int y, direction dir, int spd);
 
-/*
 //Estimate a given boat next position
 int *estimate(boat *my_boat, wind *wind);
 //Calcule la future position du bateau
-*/
 
 //Change direction into the one wished
 void change_direction(boat *my_boat, direction dir);
