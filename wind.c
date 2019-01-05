@@ -6,15 +6,26 @@
 /*Initialize a wind with a given position*/
 wind *initialize_wind(int strength, direction d){
 	wind *w = malloc(sizeof(wind)); //memory allocation of the wind structure
-	w->strength = strength;
+	if (strength<0){
+		w->strength = 0;
+	}
+	else if (strength>4){
+		w->strength = 4;
+	}
 	w->dir = d;
 	return w;
 };
 
 /*Change wind parameters: strength and/or direction*/
 void change_str_wind(wind *my_wind,int strength){
-	my_wind->strength = strength;
+	if (strength<0){
+		w->strength = 0;
+	}
+	else if (strength>4){
+		w->strength = 4;
+	}
 }; 
+
 void change_dir_wind(wind *my_wind, direction d){
 	my_wind->dir = d;
 }; 
@@ -39,8 +50,7 @@ int main(){
 	change_dir_wind(wChg,dChgNew);
 	int testChg2 = ((wChg->dir) == dChgNew);
 	printf("Change direction test: %d\n",testChg2);
-	
-	printf("%d",(1==1));
+
 	return 0;
 }
 

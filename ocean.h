@@ -1,11 +1,14 @@
 #ifndef OCEAN_H
 #define OCEAN_H
+#include "rock.h"
+#include "boat.h"
+#include "wind.h"
 
 typedef struct {
     int X;
     int Y;
     FILE map; 
-    FILE directory; /*Annuaire qui contient les adresses clients etc.*/
+    FILE registery; /*Annuaire qui contient les adresses clients etc.*/
     wind *wind;
 } ocean;
 
@@ -25,10 +28,11 @@ void move_one_step(ocean *my_ocean);
 void add_boat(ocean *my_ocean, boat *my_boat);
 
 /*Add a rock in the ocean at a given position*/
-void add_boat(ocean *my_ocean, boat *my_boat);
+void add_rock(ocean *my_ocean, boat *my_boat);
 
 /*Display the whole map with rocks and boats*/
 char *ocean_display(ocean *my_ocean);
+
 
 #endif //OCEAN_H
 
