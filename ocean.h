@@ -7,7 +7,8 @@
 typedef struct {
     int X;
     int Y;
-    FILE map; 
+	
+    FILE config; 
     FILE registery; /*Annuaire qui contient les adresses clients etc.*/
     wind *wind;
 } ocean;
