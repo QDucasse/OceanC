@@ -8,13 +8,14 @@ typedef struct BOAT{
     char nom[10];
     direction d;
     int speed;
+    int pos_estimated[2];
 } boat;
 
 ///Initialize a boat with a given name, position, direction and speed
 boat *initialize_boat(char* name, int x, int y, direction dir, int spd);
 
 //Estimate a given boat's next position, taking the wind into consideration
-int *estimate(boat *my_boat, wind *wind);
+int *estimate(boat *my_boat, wind *wind, int xOcean, int yOcean);
 
 //Change direction into the one wished
 void change_direction(boat *my_boat, direction dir);
