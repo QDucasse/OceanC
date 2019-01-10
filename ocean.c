@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "ocean.h"
 
 /* argc is the number of arguments
@@ -11,12 +9,12 @@
 
 /*Initialize an ocean with a given size and wind direction+strength*/
 ocean *initialize_ocean(int x, int y, int strength, int direction){
-	*ocean oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
+	ocean *oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
 	oc->X = x;
 	oc->Y = y;
 /*	oc->map = fopen();
- *	oc->registery = fopen();*/  //We need to access files that might have be opened elsewhere --> Productor/Consumer?
-	oc->wind = initialize_wind(strength,direction);
+ *	oc->registery  */
+	//oc->wind = initialize_wind(strength,direction);
 	return oc;
 };
 
@@ -39,15 +37,15 @@ void add_boat(ocean *my_ocean, boat *my_boat, int x, int y){
 
 /*Add a rock in the ocean at a given position*/
 void add_rock(ocean *my_ocean, rock *my_rock, int x, int y){
-	
 	//Rendre la position du caillou
 };
 
 /*Display the whole map with rocks and boats*/
-char *ocean_display(ocean *my_ocean){
-	
-};
+char *ocean_display(ocean *my_ocean);
 
 /*Make a boat dodge an obstacle*/
 
+int main(){
+	return 0;
+}
 

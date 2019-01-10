@@ -1,7 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "boat.h"
-#include "wind.h"
 
 // Initialize a boat with a given name, position, direction and speed
 boat *initialize_boat(char* name, int x, int y, direction dir, int spd){

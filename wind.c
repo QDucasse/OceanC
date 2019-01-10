@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "wind.h"
 
 
@@ -19,10 +17,10 @@ wind *initialize_wind(int strength, direction d){
 /*Change wind parameters: strength and/or direction*/
 void change_str_wind(wind *my_wind,int strength){
 	if (strength<0){
-		w->strength = 0;
+		my_wind->strength = 0;
 	}
 	else if (strength>4){
-		w->strength = 4;
+		my_wind->strength = 4;
 	}
 }; 
 
@@ -35,7 +33,7 @@ int main(){
 	//Test Initialisation
 	direction dIni = NORTH;
 	wind *wIni = initialize_wind(5,dIni);
-	int testIni1 = ((wIni->strength) == 5);
+	int testIni1 = ((wIni->strength) == 4);
 	int testIni2 = ((wIni->dir) == dIni);
 	int resIni = testIni1 && testIni2;
 	printf("Initialization test: %d\n",resIni);
@@ -45,7 +43,7 @@ int main(){
 	direction dChgNew = SOUTH;
 	wind *wChg = initialize_wind(5,dChg);
 	change_str_wind(wChg,6);
-	int testChg1 = ((wChg->strength) == 6);
+	int testChg1 = ((wChg->strength) == 4);
 	printf("Change strength test: %d\n",testChg1);
 	change_dir_wind(wChg,dChgNew);
 	int testChg2 = ((wChg->dir) == dChgNew);

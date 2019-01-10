@@ -1,8 +1,11 @@
 #ifndef WIND_H
 #define WIND_H
 
+#include <stdlib.h>
+#include <stdio.h>
+
 typedef enum {
-    NORTH,EAST,SOUTH,WEST
+    N,E,S,W
 }direction;
 
 typedef struct {
