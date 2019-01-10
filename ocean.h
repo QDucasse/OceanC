@@ -5,7 +5,7 @@
 #include "rock.h"
 #include "boat.h"
 #include "wind.h"
-
+#include <math.h>
 
 typedef struct ocean {
     int X;
@@ -37,6 +37,8 @@ void add_rock(ocean *my_ocean, rock *my_rock, int x, int y);
 /*Display the whole map with rocks and boats*/
 char *ocean_display(ocean *my_ocean);
 
+/*Estimate a given boat's next position*/
+int *estimate(boat *my_boat, wind *wind, ocean *ocean);
 
 #endif /* OCEAN_H */
 

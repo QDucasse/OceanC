@@ -45,6 +45,47 @@ char *ocean_display(ocean *my_ocean);
 
 /*Make a boat dodge an obstacle*/
 
+/*Estimate a given boat's next position*/
+int *estimate(boat *my_boat, wind *wind, ocean *ocean)
+{
+    int *pos_estimated[2]=malloc(2*sizeof(int));
+    *pos_estimated=my_boat->pos;
+    *(pos_estimated+1)=(my_boat->pos)+1;
+    
+    //Boat speed part
+    switch(my_boat->d)
+    {
+        case NORTH:
+            *(pos_estimated+1)=(*((my_boat->pos)+1+(int)floor(my_boat->speed)))%ocean->Y;
+            break;
+        case EAST:
+            *pos_estimated=(*(my_boat->pos+(int)floor(my_boat->speed)))%ocean->X;
+            break;
+        case SOUTH:
+            *(pos_estimated+1)=(*((my_boat->pos)+1-(int)floor(my_boat->speed)))%ocean->Y+ocean->Y;
+            break;
+        case WEST: 
+            *pos_estimated=(*(my_boat->pos-(int)floor(my_boat->speed)))%ocean->X+ocean->X;
+    }
+    
+    //Wind influence part
+    switch(wind->dir)
+    {
+        case NORTH:
+            *(pos_estimated+1)=(*((my_boat->pos)+1)+wind->strength)%ocean->Y;
+            break;
+        case EAST:
+            *pos_estimated=(*(my_boat->pos)+wind->strength)%ocean->X;
+            break;
+        case SOUTH: 
+            *(pos_estimated+1)=(*((my_boat->pos)+1)-wind->strength)%ocean->Y+ocean->Y;
+            break;
+        case WEST:
+            *pos_estimated=(*(my_boat->pos)-wind->strength)%ocean->X+ocean->X;
+    }
+    return pos_estimated;
+}
+
 int main(){
 	return 0;
 }
