@@ -1,8 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 #include "boat.h"
-#include "wind.h"
 
 
 // Initialize a boat with a given name, position, direction and speed

@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "rock.h"
 
 //Initialize a rock with a given position

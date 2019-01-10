@@ -1,6 +1,6 @@
 #ifndef BOAT_H
 #define BOAT_H
-#include <stdlib.h>
+/* <stdlib.h> | <stdio.h> included in wind.h */
 #include "wind.h"
 
 typedef struct BOAT{
@@ -33,4 +33,4 @@ void affdir(boat *my_boat);
 //Update the boat's speed
 void Up_speed(boat *my_boat, wind *wind);
 
-#endif
+#endif /* BOAT_H */

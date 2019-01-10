@@ -1,9 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "ocean.h"
-#include "rock.c"
-#include "wind.c"
-#include "boat.c"
 
 /* argc is the number of arguments
  * argv is an array of pointer on char on each argument
@@ -14,12 +9,12 @@
 
 /*Initialize an ocean with a given size and wind direction+strength*/
 ocean *initialize_ocean(int x, int y, int strength, int direction){
-	*ocean oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
+	ocean *oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
 	oc->X = x;
 	oc->Y = y;
-/*	oc->Y = d;
- *	oc->Y = d;*/  //We need to access files that might have be opened elsewhere --> Productor/Consumer?
-	oc->wind = initialize_wind(strength,direction);
+/*	oc->map = fopen();
+ *	oc->registery  */
+	//oc->wind = initialize_wind(strength,direction);
 	return oc;
 };
 
@@ -35,7 +30,6 @@ void move_one_step(ocean *my_ocean){
 
 /*Add a boat in the ocean at a given position*/
 void add_boat(ocean *my_ocean, boat *my_boat, int x, int y){
-	initialize_boat();
 	//Placer le bateau
 	//Ajouter le bateau à l'annuaire
 	//Rendre la position du bateau à l'utilisateur
@@ -43,15 +37,15 @@ void add_boat(ocean *my_ocean, boat *my_boat, int x, int y){
 
 /*Add a rock in the ocean at a given position*/
 void add_rock(ocean *my_ocean, rock *my_rock, int x, int y){
-	initialize_rock();
 	//Rendre la position du caillou
 };
 
 /*Display the whole map with rocks and boats*/
-char *ocean_display(ocean *my_ocean){
-	
-};
+char *ocean_display(ocean *my_ocean);
 
 /*Make a boat dodge an obstacle*/
 
+int main(){
+	return 0;
+}
 

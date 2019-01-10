@@ -1,16 +1,23 @@
 #ifndef OCEAN_H
 #define OCEAN_H
 
-typedef struct {
+/* <stdlib.h> | <stdio.h> included in boat->wind */
+#include "rock.h"
+#include "boat.h"
+#include "wind.h"
+
+
+typedef struct ocean {
     int X;
     int Y;
-    FILE map; 
-    FILE directory; /*Annuaire qui contient les adresses clients etc.*/
+	
+    FILE config; 
+    FILE registery; /*Annuaire qui contient les adresses clients etc.*/
     wind *wind;
 } ocean;
 
-/*Initialize an ocean with a given size*/
-ocean *initialize_ocean(int x, int y);
+/*Initialize an ocean with a given size and wind properties*/
+ocean *initialize_ocean(int x, int y, int strength, int direction);
 
 /*Move all boats registered in the ocean*/
 void move_one_step(ocean *my_ocean);
@@ -22,14 +29,15 @@ void move_one_step(ocean *my_ocean);
         * Dodge*/
 
 /*Add a boat in the ocean at a given position*/
-void add_boat(ocean *my_ocean, boat *my_boat);
+void add_boat(ocean *my_ocean, boat *my_boat, int x, int y);
 
 /*Add a rock in the ocean at a given position*/
-void add_boat(ocean *my_ocean, boat *my_boat);
+void add_rock(ocean *my_ocean, rock *my_rock, int x, int y);
 
 /*Display the whole map with rocks and boats*/
 char *ocean_display(ocean *my_ocean);
 
-#endif //OCEAN_H
+
+#endif /* OCEAN_H */
 
 
