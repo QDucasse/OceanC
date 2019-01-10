@@ -10,9 +10,8 @@
 typedef struct ocean {
     int X;
     int Y;
-	
     FILE config; 
-    FILE registery; /*Annuaire qui contient les adresses clients etc.*/
+    int[8][4] registery; /*Annuaire qui contient les adresses clients etc.*/
     wind *wind;
 } ocean;
 

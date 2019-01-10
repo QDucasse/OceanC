@@ -12,9 +12,18 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
 	ocean *oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
 	oc->X = x;
 	oc->Y = y;
-/*	oc->map = fopen();
- *	oc->registery  */
-	//oc->wind = initialize_wind(strength,direction);
+    //initialisation du registre
+    int *reg = malloc(4*sizeof(int)); //4 colonnes du registre
+    int *noms = malloc(20*sizeof(char)*8); //colonne noms
+    int *vitesses = malloc(sizeof(int)*8); //colonne vitesses
+    int *directions = malloc(sizeof(direction)*8); //colonne directions
+    int *ports = malloc(sizeof(int)*8); //colonne ports
+    *reg = &noms;
+    *(reg+1) = &vitesses;
+    *(reg+2) = &directions;
+    *(reg+3) = &ports;
+    
+	oc->wind = initialize_wind(strength,direction);
 	return oc;
 };
 
@@ -41,7 +50,10 @@ void add_rock(ocean *my_ocean, rock *my_rock, int x, int y){
 };
 
 /*Display the whole map with rocks and boats*/
-char *ocean_display(ocean *my_ocean);
+char *ocean_display(ocean *my_ocean)
+{
+    
+}
 
 /*Make a boat dodge an obstacle*/
 
@@ -86,7 +98,12 @@ int *estimate(boat *my_boat, wind *wind, ocean *ocean)
     return pos_estimated;
 }
 
-int main(){
+int main()
+{
+    ocean Ocean = Initialize_ocean(20,20,
+    
+    
+    
 	return 0;
 }
 
