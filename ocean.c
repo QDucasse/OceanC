@@ -12,6 +12,7 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
 	ocean *oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
 	oc->X = x;
 	oc->Y = y;
+    
     //initialisation du registre
     int *reg = malloc(4*sizeof(int)); //4 colonnes du registre
     int *noms = malloc(20*sizeof(char)*8); //colonne noms
@@ -22,8 +23,23 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
     *(reg+1) = &vitesses;
     *(reg+2) = &directions;
     *(reg+3) = &ports;
+    oc->registery = &reg;
     
+    //initialisation du vent 
 	oc->wind = initialize_wind(strength,direction);
+    
+    //initialisation du fichier config
+    oc->config = fopen("\home5\argental\Documents\OS\OceanC\Config.txt","ab+");
+    if (&oc->config==NULL)
+    {
+        printf("Error!");
+        exit(1);
+    }
+    fprintf(&oc->config,"%d\n",oc->X);
+    fprintf(&oc->config,"%d\n",oc->Y);
+    fprintf(&oc->config,"[1,2]\n[5,5]\n[4,1]\n");
+    fclose(&oc->config);
+    
 	return oc;
 };
 
@@ -60,39 +76,39 @@ char *ocean_display(ocean *my_ocean)
 /*Estimate a given boat's next position*/
 int *estimate(boat *my_boat, wind *wind, ocean *ocean)
 {
-    int *pos_estimated[2]=malloc(2*sizeof(int));
-    *pos_estimated=my_boat->pos;
-    *(pos_estimated+1)=(my_boat->pos)+1;
+    int *pos_estimated=malloc(2*sizeof(int));
+    *pos_estimated=*my_boat->pos;
+    *(pos_estimated+1)=*(my_boat->pos)+1;
     
     //Boat speed part
     switch(my_boat->d)
     {
-        case NORTH:
+        case N:
             *(pos_estimated+1)=(*((my_boat->pos)+1+(int)floor(my_boat->speed)))%ocean->Y;
             break;
-        case EAST:
+        case E:
             *pos_estimated=(*(my_boat->pos+(int)floor(my_boat->speed)))%ocean->X;
             break;
-        case SOUTH:
+        case S:
             *(pos_estimated+1)=(*((my_boat->pos)+1-(int)floor(my_boat->speed)))%ocean->Y+ocean->Y;
             break;
-        case WEST: 
+        case W: 
             *pos_estimated=(*(my_boat->pos-(int)floor(my_boat->speed)))%ocean->X+ocean->X;
     }
     
     //Wind influence part
     switch(wind->dir)
     {
-        case NORTH:
+        case N:
             *(pos_estimated+1)=(*((my_boat->pos)+1)+wind->strength)%ocean->Y;
             break;
-        case EAST:
+        case E:
             *pos_estimated=(*(my_boat->pos)+wind->strength)%ocean->X;
             break;
-        case SOUTH: 
+        case S: 
             *(pos_estimated+1)=(*((my_boat->pos)+1)-wind->strength)%ocean->Y+ocean->Y;
             break;
-        case WEST:
+        case W:
             *pos_estimated=(*(my_boat->pos)-wind->strength)%ocean->X+ocean->X;
     }
     return pos_estimated;
@@ -100,8 +116,15 @@ int *estimate(boat *my_boat, wind *wind, ocean *ocean)
 
 int main()
 {
-    ocean Ocean = Initialize_ocean(20,20,
-    
+    //Test Initialisation
+    direction dIni = N;
+    ocean* oIni = Initialize_ocean(20,18,2,dIni);
+    int testIni1 = ((oIni->X) == 20);
+	int testIni2 = ((oIni->Y) == 18);
+    int testIni3 = ((oIni->wind->strength) == 2);
+    int testIni4 = ((oIni->wind->dir) == dIni);
+	int resIni = testIni1 && testIni2 && testIni3 && testIni4;
+    printf("Initialization test: %d\n",resIni);
     
     
 	return 0;
