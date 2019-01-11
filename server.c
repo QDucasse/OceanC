@@ -2,53 +2,26 @@
  
 int listener_d;
 
-void handle_shutdown(int sig) {
+void handle_shutdown_server(int sig) {
 	//Closes the socket in case of use of Ctrl-C
 	if (listener_d) 
 		close(listener_d);
 	fprintf(stderr, "Socket closed!\n");
 	exit(0);
-} //handle_shutdown
-	
-int read_in(int socket, char *buf, int len) {
-	char *s = buf;
-	int slen = len;
-	int c = recv(socket, s, slen, 0); 
-	while ((c > 0) && (s[c-1] != '\n')) {
-		s += c; slen -= c;
-		c = recv(socket, s, slen, 0);
-	}
-	if (c < 0) 
-		return c;
-	else if (c == 0) 
-		buf[0] = '\0';
-	else 
-		s[c-1]='\0';
-	return len - slen; 
-} //read_in
-
-int say(int socket, char *s) { 
-	//Send a string to a client
-	int result = send(socket, s, strlen(s), 0); 
-	if (result == -1)
-		fprintf(stderr, "%s: %s\n", "Error talking to the client", strerror(errno)); 
-	return result;
-} //read_in
-
-
+} //handle_shutdown_server
 
 int main(int argc, char *argv[]) {
 	//printf(function_mater(("%s","stop"),2));
 	
-	//Runs the code handle_shutdown if Ctrl-C is used
-	if (catch_signal(SIGINT, handle_shutdown) == -1) 
+	//Runs the code handle_shutdown_server if Ctrl-C is used
+	if (catch_signal(SIGINT, handle_shutdown_server) == -1) 
 		error("Cannot set the interrupt handler");
 	
 	//Port we will be using
 	int port = 6543;
 	
 	//Open 
-	listener_d = open_listener_socket(); 
+	listener_d = open_socket(); 
 	
 	//Bind
 	bind_to_port(listener_d, port); 

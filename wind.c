@@ -1,6 +1,5 @@
 #include "wind.h"
 
-
 /*Initialize a wind with a given position*/
 wind *initialize_wind(int strength, direction d){
 	wind *w = malloc(sizeof(wind)); //memory allocation of the wind structure
