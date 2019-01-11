@@ -14,15 +14,19 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
 	oc->Y = y;
     
     //initialisation du registre
-    int *reg = malloc(4*sizeof(int)); //4 colonnes du registre
+    int *reg = malloc(6*sizeof(int)); //6 colonnes du registre
     int *noms = malloc(20*sizeof(char)*8); //colonne noms
     int *vitesses = malloc(sizeof(int)*8); //colonne vitesses
     int *directions = malloc(sizeof(direction)*8); //colonne directions
     int *ports = malloc(sizeof(int)*8); //colonne ports
+    int *coordsX = malloc(sizeof(int)*8); //colonne coordonnées x
+    int *coordsY = malloc(sizeof(int)*8); //colonne coordonnées y
     *reg = &noms;
     *(reg+1) = &vitesses;
     *(reg+2) = &directions;
     *(reg+3) = &ports;
+    *(reg+4) = &coordsX;
+    *(reg+5) = &coordsY;
     oc->registery = &reg;
     
     //initialisation du vent 
@@ -35,10 +39,10 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
         printf("Error!");
         exit(1);
     }
-    fwrite("\n",sizeof(int),1,oc->config);
+    fwrite("\n",2*sizeof(char),1,oc->config);
     fwrite(&oc->Y,sizeof(int),1,oc->config);
-    fwrite("\n",sizeof(int),1,oc->config);
-    fwrite("[1,2]\n[5,5]\n[4,1]\n",sizeof(int),1,oc->config);
+    fwrite("\n",2*sizeof(char),1,oc->config);
+    fwrite("[1,2]\n[5,5]\n[4,1]\n",21*sizeof(char),1,oc->config);
     
     fclose(oc->config);
     
