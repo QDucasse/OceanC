@@ -12,7 +12,7 @@ typedef struct ocean {
     int Y;
     FILE* config;
     int* registery; /*Annuaire qui contient les adresses clients etc.*/
-    wind *wind;
+    wind* wind;
 } ocean;
 
 /*Initialize an ocean with a given size and wind properties*/
