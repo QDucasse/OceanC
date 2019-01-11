@@ -118,6 +118,8 @@ int *estimate(boat *my_boat, wind *wind, ocean *ocean)
     return pos_estimated;
 };
 
+
+#ifdef LOCAL_OCEAN
 int main()
 {
     //Test Initialisation
@@ -133,4 +135,4 @@ int main()
     
 	return 0;
 }
-
+#endif

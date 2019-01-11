@@ -74,10 +74,12 @@ int say(int socket, char *s) {
 	return result;
 } //say
 
+#ifdef LOCAL_NTOOLS
 /*Main et Tests*/
 int main(){
 	return 0;
 }
+#endif
 
 
 
