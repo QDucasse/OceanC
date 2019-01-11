@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <signal.h>
-#include "funcmatch.h"
 
 /* Error and signal handling */
 void error(char *msg);

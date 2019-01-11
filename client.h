@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include "network_tools.h"
+#include "ocean.h"
 
 void handle_shutdown_client(int sig);
 

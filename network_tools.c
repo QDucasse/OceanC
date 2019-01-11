@@ -1,4 +1,4 @@
-#include "wind.h"
+#include "network_tools.h"
 
 void error(char *msg) {
 	fprintf(stderr, "%s: %s\n", msg, strerror(errno));

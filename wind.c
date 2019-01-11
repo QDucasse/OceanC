@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "wind.h"
 
 /*Initialize a wind with a given position*/
