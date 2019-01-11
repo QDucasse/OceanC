@@ -19,7 +19,7 @@ void change_dir_wind(wind *my_wind, direction d){
 /*Main et Tests*/
 int main(){
 	//Test Initialisation
-	direction dIni = NORTH;
+	direction dIni = N;
 	wind *wIni = initialize_wind(5,dIni);
 	int testIni1 = ((wIni->strength) == 5);
 	int testIni2 = ((wIni->dir) == dIni);
@@ -27,8 +27,8 @@ int main(){
 	printf("Initialization test: %d\n",resIni);
 	
 	//Test changing parameters
-	direction dChg = NORTH;
-	direction dChgNew = SOUTH;
+	direction dChg = N;
+	direction dChgNew = S;
 	wind *wChg = initialize_wind(5,dChg);
 	change_str_wind(wChg,6);
 	int testChg1 = ((wChg->strength) == 6);

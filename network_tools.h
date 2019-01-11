@@ -2,6 +2,8 @@
 #define NETWORK_TOOLS_H
 
 /* <stdlib.h> | <stdio.h> included in funcmatch->ocean->boat->wind */
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include <sys/socket.h>
