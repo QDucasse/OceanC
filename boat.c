@@ -10,7 +10,6 @@ boat *initialize_boat(char* name, int x, int y, direction dir, int spd){
     *((my_boat->pos)+1)=y;
     my_boat->d=dir;
     my_boat->speed=spd;
-    *(my_boat->pos_estimated)=estimate(my_boat->pos_estimated);
     return my_boat;
 }
 
@@ -21,22 +20,11 @@ void change_direction(boat *my_boat, direction dir)
 }
 
 // Turn the boat in the left direction
-void turn(boat *my_boat)
+void turn_right(boat *my_boat)
 {
     my_boat->d=my_boat->d+1;
 }
 
-// Displays the boat's direction
-void affdir(boat *my_boat)
-{
-    switch(my_boat->d)
-    {
-        case NORTH: printf("North\n"); break;
-        case EAST: printf("East\n"); break;
-        case SOUTH: printf("South\n"); break;
-        case WEST: printf("West\n");
-    }
-}
 
 //Change boat speed with saturation outside [0,20]
 void change_speed(boat *my_boat,int speed)
@@ -55,98 +43,37 @@ void change_speed(boat *my_boat,int speed)
     }
 }
 
-//Estimate a given boat next position
-int *estimate(boat *my_boat, wind *wind, int xOcean, int yOcean)
-{
-    int *pos_estimated[2]=malloc(2*sizeof(int));
-    *pos_estimated=my_boat->pos;
-    *(pos_estimated+1)=(my_boat->pos)+1;
-    
-    //Boat speed part
-    switch(my_boat->d)
-    {
-        case NORTH:
-            *(pos_estimated+1)=(*((my_boat->pos)+1+(int)floor(my_boat->speed)))%yOcean;
-            break;
-        case EAST:
-            *pos_estimated=(*(my_boat->pos+(int)floor(my_boat->speed)))%xOcean;
-            break;
-        case SOUTH:
-            *(pos_estimated+1)=(*((my_boat->pos)+1-(int)floor(my_boat->speed)))%yOcean+yOcean;
-            break;
-        case WEST: 
-            *pos_estimated=(*(my_boat->pos-(int)floor(my_boat->speed)))%xOcean+xOcean;
-    }
-    
-    //Wind influence part
-    switch(wind->dir)
-    {
-        case NORTH:
-            *(pos_estimated+1)=(*((my_boat->pos)+1)+wind->strength)%yOcean;
-            break;
-        case EAST:
-            *pos_estimated=(*(my_boat->pos)+wind->strength)%xOcean;
-            break;
-        case SOUTH: 
-            *(pos_estimated+1)=(*((my_boat->pos)+1)-wind->strength)%yOcean+yOcean;
-            break;
-        case WEST:
-            *pos_estimated=(*(my_boat->pos)-wind->strength)%xOcean+xOcean;
-    }
-    return pos_estimated;
-}
-
 
 /*Main et Tests*/
 int main()
 {
     //Test Initialisation
-    direction go=NORTH;
-    direction goWind=EAST;
-    boat* bato = initialize_boat("jean",2,4,go,1);
-    wind* ww = initialize_wind(2,goWind);
-    affdir(bato);
+    direction dbIni=N;
+    boat* bIni = initialize_boat("jean",2,4,dbIni,1);
+    int testIni1 = (*(bIni->nom) == 'j');
+	int testIni2 = ((*(bIni->pos)) == 2);
+    int testIni3 = (*((bIni->pos)+1) == 4);
+    int testIni4 = ((bIni->d) == dbIni);
+    int testIni5 = ((bIni->speed) == 1);
+	int resIni = testIni1 && testIni2 && testIni3 && testIni4 && testIni5;
+    printf("Initialization test: %d\n",resIni);
     
-    turn(bato);
-    affdir(bato);
+    //Test changing parameters
+    turn_right(bIni);
+    int testChg1 = ((bIni->d) == E);
+	printf("Turn right test: %d\n",testChg1);
     
-    change_direction(bato, go+3);
-    affdir(bato);
+    change_direction(bIni, W);
+    int testChg2 = ((bIni->d) == W);
+	printf("Change direction test: %d\n",testChg2);
+    
+    change_speed(bIni,2);
+    int testChg3 = ((bIni->speed) == 2);
+	printf("Change speed test: %d\n",testChg3);
 
-    change_speed(bato,2);
-    printf("%d\n",bato->speed);
-
-    change_speed(bato,48);
-    printf("%d\n",bato->speed);
-
-    printf("x actuel: %d\n",*(bato->pos));
-    printf("y actuel: %d\n",*((bato->pos)+1));
-    printf("x estimé: %d\n",*estimate(bato, ww, 20, 20));
-    printf("y estimé: %d\n",*(estimate(bato, ww, 20, 20)+1));
+    change_speed(bIni,48);
+    int testChg4 = ((bIni->speed) == 20);
+	printf("Change speed test2: %d\n",testChg4);
     
     return 0;
 }
-
-/*Main et Tests*/
-int main(){
-	//Test Initialisation
-	direction dIni = NORTH;
-	wind *wIni = initialize_wind(5,dIni);
-	int testIni1 = ((wIni->strength) == 5);
-	int testIni2 = ((wIni->dir) == dIni);
-	int resIni = testIni1 && testIni2;
-	printf("Initialization test: %d\n",resIni);
-	
-	//Test changing parameters
-	direction dChg = NORTH;
-	direction dChgNew = SOUTH;
-	wind *wChg = initialize_wind(5,dChg);
-	change_str_wind(wChg,6);
-	int testChg1 = ((wChg->strength) == 6);
-	printf("Change strength test: %d\n",testChg1);
-	change_dir_wind(wChg,dChgNew);
-	int testChg2 = ((wChg->dir) == dChgNew);
-	printf("Change direction test: %d\n",testChg2);
-	
-	printf("%d",(1==1));
-	return 0;
