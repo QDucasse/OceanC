@@ -27,3 +27,12 @@ server: server.o network_tools.o ocean.o funcmatch.o
 
 client: client.o network_tools.o ocean.o funcmatch.o
 	gcc client.o network_tools.o ocean.o funcmatch.o -o client
+
+test_boat: boat.o
+	gcc -DLOCAL_BOAT boat.o -o test_boat
+
+test_wind: wind.o
+	gcc -DLOCAL_WIND wind.o -o test_wind
+
+test_rock: rock.o
+	gcc -DLOCAL_ROCK rock.o -o test_rock 

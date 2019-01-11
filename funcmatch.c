@@ -31,6 +31,7 @@ int funcmatch(char* command, int id){
 	return 1;
 }
 
+
 int main(int argc, char *argv[]) {
 	int idTest = 1;
 	
