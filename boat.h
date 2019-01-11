@@ -1,8 +1,7 @@
 #ifndef BOAT_H
 #define BOAT_H
 
-#include <stdlib.h> 
-#include <stdio.h>
+#include "wind.h"
 
 typedef struct BOAT{
     int pos[2];
