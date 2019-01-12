@@ -51,11 +51,14 @@ int main(int argc, char *argv[]) {
 	//thread lecture console serveur
 	//thread deplacement des bateaux
 	
+	
 	//Now we should loop the wait and fork a process for every incoming client
 	while(1){
 		int connect_d = accept_connection(listener_d,client_addr,address_size);
 		//close_socket(port);
+		//thread connection client
 		
+		//A supprimer
 		if(!fork()) {
 			//We are in the child process here
 			//Le serveur doit prendre en charge le bateau qui arrive
@@ -75,6 +78,8 @@ int main(int argc, char *argv[]) {
 			close(connect_d);
 			exit(0);
 		} //if(!fork)
+		//A supprimer
+		
 	} //while(1)
 } //main()
 

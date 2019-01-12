@@ -9,7 +9,7 @@ rock *initialize_rock(int x, int y){
     return my_rock;
 }
 
-
+#ifdef LOCAL_ROCK
 int main()
 {
 	//Test Initialisation
@@ -20,3 +20,4 @@ int main()
 	printf("Initialization test: %d\n",resIni);
     return 0;
 }
+#endif

@@ -31,6 +31,7 @@ int funcmatch(char* command, int id){
 	return 1;
 }
 
+#ifdef LOCAL_FUNCMATCH
 int main(int argc, char *argv[]) {
 	int idTest = 1;
 	
@@ -64,8 +65,7 @@ int main(int argc, char *argv[]) {
 	int resTestModDir = funcmatch(testModDir,idTest); /* with "modif_direction", the function matcher should return 1 */
 	printf("Function matcher modif_speed case test: %d\n",resTestModDir);
 }
-	
-	
+#endif
 	
 	
 	

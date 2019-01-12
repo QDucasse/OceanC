@@ -17,6 +17,7 @@ void change_dir_wind(wind *my_wind, direction d){
 }; 
 
 
+#ifdef LOCAL_WIND
 /*Main et Tests*/
 int main(){
 	//Test Initialisation
@@ -41,6 +42,6 @@ int main(){
 	printf("%d",(1==1));
 	return 0;
 }
-
+#endif
 
 

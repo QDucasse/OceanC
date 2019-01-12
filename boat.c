@@ -43,7 +43,7 @@ void change_speed(boat *my_boat,int speed)
     }
 }
 
-
+#ifdef LOCAL_BOAT
 /*Main et Tests*/
 int main()
 {
@@ -77,3 +77,5 @@ int main()
     
     return 0;
 }
+
+#endif
