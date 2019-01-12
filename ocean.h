@@ -1,11 +1,10 @@
 #ifndef OCEAN_H
 #define OCEAN_H
-
+#include <math.h>
 /* <stdlib.h> | <stdio.h> included in boat->wind */
 #include "rock.h"
 #include "boat.h"
 #include "wind.h"
-#include <math.h>
 
 typedef struct ocean {
     int X;

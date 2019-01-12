@@ -16,6 +16,7 @@ void change_dir_wind(wind *my_wind, direction d){
 	my_wind->dir = d;
 }; 
 
+
 #ifdef LOCAL_WIND
 /*Main et Tests*/
 int main(){
