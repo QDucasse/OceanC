@@ -13,11 +13,21 @@ int main()
     }
     char line[10];
     int u = 0;
-    int X = 5;
-    int Y = 5;
+    int X, Y;
+    int* RocksX = malloc(sizeof(int)*20);
+    int* RocksY = malloc(sizeof(int)*20);
     while (fgets(line,sizeof(line),conf)!=NULL)
     {
-        printf("%s",line);
+        switch(u)
+        {
+            case 0: X=atoi(line); break;
+                printf("%d",X); 
+                break;
+            case 1: Y=atoi(line); break;
+            default:
+                sscanf(line,"%d %d",RocksX+u-2,RocksY+u-2);
+        }
+        u++;
     }
         
     fclose(conf);
@@ -32,20 +42,38 @@ int main()
     int a[2]={1,2};
     int b[2]={3,2};
     
-    int i, j;
+    int i, j, k;
     for (i=0;i<X;i++)
     {
         for (j=0;j<Y;j++)
         {
-            if (i==a[0] && j==a[1])
+            int Found = 0;
+            /* Rocher */
+            for (k=0;k<u-2;k++)
             {
-                printf("<i>");
+                if (i==*(RocksX+k) && j==*(RocksY+k))
+                {
+                    printf("[R]");
+                    Found = 1;/*
+                    printf("i=%d,j=%d,k=%d",i,j,k);*/
+                }
             }
-            else if (i==b[0] && j==b[1])
+            
+            /* Bateau */
+            if (Found==0)
             {
-                printf("[M]");
+                for (k=0;k<8;k++)
+                {
+                    if (i==*(coordsX+k) && j==*(coordsY+k))
+                    {
+                        printf("<i>");
+                        Found = 1;
+                    }
+                }
             }
-            else
+            
+            /* Mer */
+            if (Found==0)
             {
                 printf("~~~");
             }

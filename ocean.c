@@ -10,8 +10,25 @@
 /*Initialize an ocean with a given size and wind direction+strength*/
 ocean *initialize_ocean(int x, int y, int strength, int direction){
 	ocean *oc = malloc(sizeof(ocean)); //memory allocation of the ocean structure
-	oc->X = x;
-	oc->Y = y;
+    
+    //initialisation des dimensions de l'océan
+    FILE* conf = fopen("Config.txt","ab+");
+    if (conf == NULL)
+    {
+        fprintf(stderr,"Could not open file");
+    }
+    char line[10];
+    int u = 0;
+    while (fgets(line,sizeof(line),conf)!=NULL)
+    {
+        switch(u)
+        {
+            case 0: oc->X=atoi(line); break;
+            case 1: oc->Y=atoi(line); break;
+        }
+        u++;
+    }
+    fclose(conf);
     
     //initialisation du registre
     int *reg = malloc(6*sizeof(int)); //6 colonnes du registre
@@ -27,26 +44,22 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
     *(reg+3) = &ports;
     *(reg+4) = &coordsX;
     *(reg+5) = &coordsY;
-    oc->registery = &reg; */
+    *(oc->registery) = &reg;
+    int i;
+    for (i=0;i<8;i++)
+    {
+        *(*(&(oc->registery)+4)+i)=oc->X+1;
+        *(*(&(oc->registery)+5)+i)=oc->Y+1;
+    }
+*/
     
     //initialisation du vent 
 	oc->wind = initialize_wind(strength,direction);
-    
-	rock *r = initialize_rock(1,2);
-    //initialisation du fichier config
-    oc->config = fopen("Config.txt","ab+");
-    if (oc->config==NULL)
-    {
-        printf("Error!");
-        exit(1);
-    }
-    fwrite("\n",2*sizeof(char),1,oc->config);
-    fwrite(&oc->Y,sizeof(int),1,oc->config);
-    fwrite("\n",2*sizeof(char),1,oc->config);
-    fwrite("[1,2]\n[5,5]\n[4,1]\n",21*sizeof(char),1,oc->config);
-    
-    fclose(oc->config);
-    
+  
+    //initialisation de la liste des pointeurs bateau
+    oc->boats = malloc(8*sizeof(boat));
+    oc->nb_boats = 0;
+  
 	return oc;
 };
 
@@ -61,10 +74,16 @@ void move_one_step(ocean *my_ocean){
 };
 
 /*Add a boat in the ocean at a given position*/
-void add_boat(ocean *my_ocean, boat *my_boat, int x, int y){
-	//Placer le bateau
-	//Ajouter le bateau à l'annuaire
-	//Rendre la position du bateau à l'utilisateur
+void add_boat(ocean *my_ocean, boat *my_boat, char* name, int x, int y, int port)
+{
+    direction D = E;
+    *(&(my_ocean->boats)+my_ocean->nb_boats) = initialize_boat(name, x, y, D, 2);
+    *(*(my_ocean->registery) + my_ocean->nb_boats) = *name;
+    *(*(&(my_ocean->registery)+1) + my_ocean->nb_boats) = 2;
+    *(*(&(my_ocean->registery)+2) + my_ocean->nb_boats) = D;
+    *(*(&(my_ocean->registery)+3) + my_ocean->nb_boats) = port;
+    *(*(&(my_ocean->registery)+4) + my_ocean->nb_boats) = x;
+    *(*(&(my_ocean->registery)+5) + my_ocean->nb_boats) = y;
 };
 
 /*Add a rock in the ocean at a given position*/
@@ -73,12 +92,72 @@ void add_rock(ocean *my_ocean, rock *my_rock, int x, int y){
 };
 
 /*Display the whole map with rocks and boats*/
-/*
-char *ocean_display(ocean *my_ocean)
-{
 
+void ocean_display(ocean *my_ocean)
+{
+    // Récupération des coordonnées des rochers dans Config.txt
+    FILE* conf = fopen("Config.txt","ab+");
+    if (conf == NULL)
+    {
+        fprintf(stderr,"Could not open file");
+    }
+    char line[10];
+    int u = 0;
+    int* RocksX = malloc(sizeof(int)*20);
+    int* RocksY = malloc(sizeof(int)*20);
+    while (fgets(line,sizeof(line),conf)!=NULL)
+    {
+        switch(u)
+        {
+            case 0: break;
+            case 1: break;
+            default: sscanf(line,"%d %d",RocksX+u-2,RocksY+u-2);
+        }
+        u++;
+    }
+    
+    fclose(conf);
+    
+    // Ecriture de la carte
+    int i, j, k;
+    for (i=0;i<my_ocean->X;i++)
+    {
+        for (j=0;j<my_ocean->Y;j++)
+        {
+            int Found = 0;
+            /* Rocher */
+            for (k=0;k<u-2;k++)
+            {
+                if (i==*(RocksX+k) && j==*(RocksY+k))
+                {
+                    printf("[R]");
+                    Found = 1;
+                }
+            }
+            
+            /* Bateau */
+            if (Found==0)
+            {
+                for (k=0;k<8;k++)
+                {
+                    if (i==*(*(&(my_ocean->registery)+4)+k) && j==*(*(&(my_ocean->registery)+5)+k))
+                    {
+                        printf("<i>");
+                        Found = 1;
+                    }
+                }
+            }
+            
+            /* Mer */
+            if (Found==0)
+            {
+                printf("~~~");
+            }
+        }
+    printf("\n");
+    }
 };
-*/
+
 
 /*Make a boat dodge an obstacle*/
 
@@ -137,6 +216,8 @@ int main()
 	int resIni = testIni1 && testIni2 && testIni3 && testIni4;
     printf("Initialization test: %d\n",resIni);
     
+    //Test d'affichage de la carte
+    ocean_display(oIni);
     
 	return 0;
 }
