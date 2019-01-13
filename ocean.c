@@ -32,6 +32,7 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
     //initialisation du vent 
 	oc->wind = initialize_wind(strength,direction);
     
+	rock *r = initialize_rock(1,2);
     //initialisation du fichier config
     oc->config = fopen("Config.txt","ab+");
     if (&oc->config==NULL)

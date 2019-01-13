@@ -13,6 +13,7 @@ int catch_signal(int sig, void (*handler)(int)) {
 	return sigaction (sig, &action, NULL); 
 } //catch_signal
 
+
 int open_socket() {
 	int socket_d = socket(AF_INET, SOCK_STREAM, 0); 
 	if (socket_d == -1)
@@ -48,6 +49,13 @@ int accept_connection(int listener_d,struct sockaddr_storage client_addr,unsigne
 		error("Cannot open secondary socket");
 	return connect_d;
 } //accept_connection
+
+void connect_client(int socket_d, int port,struct sockaddr_in name){
+	int res = connect(socket_d, (struct sockaddr *)&name, sizeof(name));
+	if (res==-1){
+		error("Cannot connect to the socket");
+	}
+};
 
 int read_in(int socket, char *buf, int len) {
 	char *s = buf;

@@ -15,15 +15,20 @@ int main(int argc, char *argv[]) {
 	if (catch_signal(SIGINT, handle_shutdown_client) == -1) 
 		error("Cannot set the interrupt handler");
 	
-	//Port we will be using
-	int port = 6543;
+	struct hostent *host=gethostbyname(argv[1]);
+	int port=atoi(argv[2]);
+	struct sockaddr_in name;
+	name.sin_family = AF_INET;
+	name.sin_port = (in_port_t)htons(port);
+	name.sin_addr.s_addr = htonl(INADDR_ANY);
+	bcopy(host->h_addr, &name.sin_addr.s_addr, host->h_length);
 	
 	//Open 
 	socket_d = open_socket(); 
 	
 	puts("Connection...");
 	char buf_cli[255];
-
+	connect_client(socket_d, port, name);
 	/*
 		
 		if(!fork()) {
