@@ -1,16 +1,16 @@
 default: server client
 
-all: test_boat test_wind test_rock server client 
+all: test_boat test_wind test_rock test_funcmatch test_ocean server client 
 
 
 #--------------------------------------------------------------
 # Client & Server object files and executables
 
 client: client.o network_tools.o ocean.o funcmatch.o
-	gcc client.o network_tools.o ocean.o funcmatch.o boat.o wind.o rock.o -o client
+	gcc client.o network_tools.o ocean.o funcmatch.o boat.o wind.o rock.o -o client -Wall -Wextra
 
 server: server.o network_tools.o ocean.o funcmatch.o boat.o wind.o rock.o
-	gcc server.o network_tools.o funcmatch.o ocean.o boat.o wind.o rock.o -o server
+	gcc server.o network_tools.o funcmatch.o ocean.o boat.o wind.o rock.o -o server -Wall -Wextra
 	
 client.o: client.c client.h network_tools.o ocean.o
 	gcc -c client.c
@@ -29,6 +29,12 @@ test_wind: wind.c
 
 test_rock: rock.c
 	gcc -D LOCAL_ROCK rock.c -o test_rock 
+
+test_funcmatch: funcmatch.c
+	gcc -D LOCAL_FUNCMATCH funcmatch.c -o test_funcmatch 
+
+test_ocean: ocean.c rock.c wind.c boat.c
+	gcc -D LOCAL_OCEAN ocean.c rock.c wind.c boat.c -o test_ocean 
 
 #--------------------------------------------------------------
 # Object files for all the structure non-network related

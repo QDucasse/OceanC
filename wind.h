@@ -20,5 +20,9 @@ wind *initialize_wind(int strength, direction d);
 void change_str_wind(wind *my_wind,int strength); 
 void change_dir_wind(wind *my_wind, direction d); 
 
+/* String/Direction conversion */
+char dirtostr(direction dir);
+direction strtodir(char strdir);
+	
 #endif //WIND_H
 

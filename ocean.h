@@ -1,6 +1,7 @@
 #ifndef OCEAN_H
 #define OCEAN_H
 #include <math.h>
+#include <pthread.h>
 /* <stdlib.h> | <stdio.h> included in boat->wind */
 #include "rock.h"
 #include "boat.h"

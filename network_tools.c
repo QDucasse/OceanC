@@ -50,8 +50,13 @@ int accept_connection(int listener_d,struct sockaddr_storage client_addr,unsigne
 	return connect_d;
 } //accept_connection
 
-void connect_client(int socket_d, int port,struct sockaddr_in name){
-	int res = connect(socket_d, (struct sockaddr *)&name, sizeof(name));
+void connect_client(int socket_d,  struct hostent *host, int port){
+	struct sockaddr_in adr;
+	memset(&adr, 0, sizeof(adr));
+	adr.sin_family = AF_INET;
+	adr.sin_port = htons(port);
+	bcopy(host->h_addr, &adr.sin_addr.s_addr, host->h_length);
+	int res = connect(socket_d, (struct sockaddr *) &adr, sizeof(adr));
 	if (res==-1){
 		error("Cannot connect to the socket");
 	}

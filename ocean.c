@@ -21,13 +21,13 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
     int *ports = malloc(sizeof(int)*8); //colonne ports
     int *coordsX = malloc(sizeof(int)*8); //colonne coordonnées x
     int *coordsY = malloc(sizeof(int)*8); //colonne coordonnées y
-    *reg = &noms;
+/*    *reg = &noms;
     *(reg+1) = &vitesses;
     *(reg+2) = &directions;
     *(reg+3) = &ports;
     *(reg+4) = &coordsX;
     *(reg+5) = &coordsY;
-    oc->registery = &reg;
+    oc->registery = &reg; */
     
     //initialisation du vent 
 	oc->wind = initialize_wind(strength,direction);
@@ -35,7 +35,7 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
 	rock *r = initialize_rock(1,2);
     //initialisation du fichier config
     oc->config = fopen("Config.txt","ab+");
-    if (&oc->config==NULL)
+    if (oc->config==NULL)
     {
         printf("Error!");
         exit(1);
