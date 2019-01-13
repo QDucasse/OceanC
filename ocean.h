@@ -12,6 +12,8 @@ typedef struct ocean {
     FILE* config;
     int* registery; /*Annuaire qui contient les adresses clients etc.*/
     wind* wind;
+    int* boats;
+    int nb_boats;
 } ocean;
 
 /*Initialize an ocean with a given size and wind properties*/
@@ -27,13 +29,13 @@ void move_one_step(ocean *my_ocean);
         * Dodge*/
 
 /*Add a boat in the ocean at a given position*/
-void add_boat(ocean *my_ocean, boat *my_boat, int x, int y);
+void add_boat(ocean *my_ocean, boat *my_boat, char* name, int x, int y, int port);
 
 /*Add a rock in the ocean at a given position*/
 void add_rock(ocean *my_ocean, rock *my_rock, int x, int y);
 
 /*Display the whole map with rocks and boats*/
-char *ocean_display(ocean *my_ocean);
+void ocean_display(ocean *my_ocean);
 
 /*Estimate a given boat's next position*/
 int *estimate(boat *my_boat, wind *wind, ocean *ocean);
