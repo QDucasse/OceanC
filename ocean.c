@@ -38,7 +38,7 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
     int *ports = malloc(sizeof(int)*8); //colonne ports
     int *coordsX = malloc(sizeof(int)*8); //colonne coordonnées x
     int *coordsY = malloc(sizeof(int)*8); //colonne coordonnées y
-    *reg = &noms;
+/*    *reg = &noms;
     *(reg+1) = &vitesses;
     *(reg+2) = &directions;
     *(reg+3) = &ports;
@@ -51,14 +51,15 @@ ocean *initialize_ocean(int x, int y, int strength, int direction){
         *(*(&(oc->registery)+4)+i)=oc->X+1;
         *(*(&(oc->registery)+5)+i)=oc->Y+1;
     }
+*/
     
     //initialisation du vent 
 	oc->wind = initialize_wind(strength,direction);
-    
+  
     //initialisation de la liste des pointeurs bateau
     oc->boats = malloc(8*sizeof(boat));
     oc->nb_boats = 0;
-    
+  
 	return oc;
 };
 

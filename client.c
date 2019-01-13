@@ -11,19 +11,30 @@ void handle_shutdown_client(int sig) {
 } //handle_shutdown
 
 int main(int argc, char *argv[]) {
-	//Runs the code handle_shutdown if Ctrl-C is used
+	//Runs the code handle_shutdown_client if Ctrl-C is used
 	if (catch_signal(SIGINT, handle_shutdown_client) == -1) 
 		error("Cannot set the interrupt handler");
 	
-	//Port we will be using
-	int port = 6543;
+	//Argument storage
+	struct hostent *host=gethostbyname(argv[1]);
+	int port=atoi(argv[2]);
+	char *name = argv[3];
+	int speed = atoi(argv[4]);
+	//direction d = argv[5];
 	
 	//Open 
 	socket_d = open_socket(); 
 	
 	puts("Connection...");
 	char buf_cli[255];
-
+	printf("%d\n",port);
+	printf("%s\n",name);
+	printf("%d\n",speed);
+	connect_client(socket_d, host, port);
+	
+	if(!fork()) {
+		say(socket_d,"Bonjour le serveur\n");
+	}
 	/*
 		
 		if(!fork()) {
@@ -38,8 +49,7 @@ int main(int argc, char *argv[]) {
 			   }
 			}	//if(say(...
 			close(connect_d);
-			exit(0);
-		} */
+			exit(0); */
 } //main()
 
 

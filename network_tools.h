@@ -21,6 +21,7 @@ void bind_to_port(int socket, int port);
 int open_socket();
 void listen_socket(int listener_d,int queue);
 int accept_connection(int listener_d,struct sockaddr_storage client_addr,unsigned int address_size);
+void connect_client(int socket_d,  struct hostent *host, int port);
 
 /* Server-Client communication */
 int read_in(int socket, char *buf, int len);

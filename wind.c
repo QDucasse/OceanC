@@ -16,6 +16,63 @@ void change_dir_wind(wind *my_wind, direction d){
 	my_wind->dir = d;
 }; 
 
+direction strtodir(char strdir){
+	direction dir;
+	direction north = 1;
+	direction east = 2;
+	direction south = 3;
+	direction west = 4;
+	switch(strdir){
+		case 'n':
+		case 'N': 
+			dir = north;
+			return dir;
+			break;
+		case 'w':
+		case 'W': 
+			dir = east;
+			return dir;
+			break;
+		case 's':
+		case 'S': 
+			dir = south;
+			return dir;
+			break;	
+		case 'e':
+		case 'E': 
+			dir = west;
+			return dir;
+			break;				
+	}
+	return 0;	
+}
+
+char dirtostr(direction dir){
+	char strdir;
+	char strdirN = 'N';
+	char strdirE = 'E';
+	char strdirS = 'S';
+	char strdirW = 'W';
+	switch(dir){
+		case N: 
+			strdir = strdirN;
+			return strdir;
+			break;
+		case E: 
+			strdir = strdirE;
+			return strdir;
+			break;	
+		case S: 
+			strdir = strdirS;
+			return strdir;
+			break;	
+		case W: 
+			strdir = strdirW;
+			return strdir;
+			break;		
+	}	
+	return 'Q';	
+}
 
 #ifdef LOCAL_WIND
 /*Main et Tests*/
