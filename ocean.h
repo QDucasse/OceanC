@@ -7,33 +7,36 @@
 #include "boat.h"
 #include "wind.h"
 
+typedef struct registery {
+	int nb_boats;
+    char *names;
+    char *speeds;
+	direction *directions;
+	int *coordX;
+	int *coordY;
+	int *socket_desc;
+} registery;
+
 typedef struct ocean {
     int X;
     int Y;
     FILE* config;
-    int* registery; /*Annuaire qui contient les adresses clients etc.*/
+    registery *reg;
     wind* wind;
-    int* boats;
-    int nb_boats;
+	boat *boat_list;
 } ocean;
 
-/*Initialize an ocean with a given size and wind properties*/
-ocean *initialize_ocean(int x, int y, int strength, int direction);
+/*Initialize a registery*/
+registery *initialize_registery(int nb_boats);
+
+/*Initialize an ocean with wind properties*/
+ocean *initialize_ocean(int strength, int direction);
 
 /*Move all boats registered in the ocean*/
 void move_one_step(ocean *my_ocean);
-/* Extraction of the number of boats
- * Extraction of all the pointers in a list
- * For loop for every boat, in the registration order
-    * Estimate
-    * For estimate not free
-        * Dodge*/
 
 /*Add a boat in the ocean at a given position*/
-void add_boat(ocean *my_ocean, boat *my_boat, char* name, int x, int y, int port);
-
-/*Add a rock in the ocean at a given position*/
-void add_rock(ocean *my_ocean, rock *my_rock, int x, int y);
+void add_boat(ocean *my_ocean, boat *my_boat, char* name, int x, int y, int socket_d);
 
 /*Display the whole map with rocks and boats*/
 void ocean_display(ocean *my_ocean);

@@ -1,32 +1,30 @@
 #include "funcmatch.h"
 
-int funcmatch(char* command, int id){
+int funcmatch(char* command, int id,ocean *oc){
 	//split the string
 	if (strncasecmp(command,"modif_speed ",11)==0){
-		int speed = (int) (command+12);
-		//oceanRegistery[id]->speed = newSpeed
+		int speed = atoi(command+12);
+		((oc->reg)->speeds)[id] = speed;
 		return 1;
 	} 
 	else if (strncasecmp(command,"modif_direction",15)==0){
-		//char direction = (buf+15) (int)
-		//oceanRegistery[id]->direction = newDirection
+		direction dir = strtodir(*(command+16));
+		((oc->reg)->directions)[id] = dir;
 	}
 	else if (strncasecmp(command,"say",3)==0){
-		int i=0;
-		/*
-		for (i;i<7;i++){
-			if(say(oceanRegistery[id][indice socket_d],("%d says %s", id, la suite de la string) 
+		int i;
+		char message = *(command+4); 
+		for (i=0;i<7;i++){
+			say(((oc->reg)->socket_desc)[i],("%d says %s", id, message));
 		}
-		*/
 		return 1;
 	}
 	else if (strncasecmp(command,"display",9)==0){
-		//display the ocean
+		ocean_display(oc);
 		return 1;
 	}
 	else if (strncasecmp(command,"quit",4)==0 || strncasecmp(command,"stop",4)==0){
 		return 0;
-		//ptet close le socket ici aussi
 	}	
 	return 1;
 }

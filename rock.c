@@ -1,6 +1,6 @@
 #include "rock.h"
 
-//Initialize a rock with a given position
+/* Initializes a rock with a given position */
 rock *initialize_rock(int x, int y){
     rock *my_rock;
     my_rock=malloc(sizeof(rock));
@@ -9,7 +9,7 @@ rock *initialize_rock(int x, int y){
     return my_rock;
 }
 
-#ifdef LOCAL_ROCK
+#ifdef LOCAL_ROCK //This variable definition allows us to keep a single main in the server/client while keeping tests here in case of its definition
 int main()
 {
 	//Test Initialisation

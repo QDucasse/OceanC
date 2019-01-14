@@ -10,17 +10,16 @@ typedef struct BOAT{
     int speed;
 } boat;
 
-//Initialize a boat with a given name, position, direction and speed
+/* Initializes a boat with a given name, position, direction and speed */
 boat *initialize_boat(char* name, int x, int y, direction dir, int spd);
 
-//Change direction into the one wished
+/* Changes the direction of a boat */
 void change_direction(boat *my_boat, direction dir);
 
-//Change direction from the current one
+/* Turns the boat clockwise */
 void turn_right(boat *my_boat);
 
-//Change boat speed 
+/* Changes the speed of the boat */
 void change_speed(boat *my_boat,int speed); 
-//Influe sur la vitesse d'un bateau
 
 #endif /* BOAT_H */

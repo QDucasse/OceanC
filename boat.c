@@ -1,7 +1,7 @@
 #include "boat.h"
 
 
-// Initialize a boat with a given name, position, direction and speed
+/* Initializes a boat with a given name, position, direction and speed */
 boat *initialize_boat(char* name, int x, int y, direction dir, int spd){
     boat *my_boat;
     my_boat=malloc(sizeof(boat));
@@ -13,29 +13,29 @@ boat *initialize_boat(char* name, int x, int y, direction dir, int spd){
     return my_boat;
 }
 
-// Turn the boat in the direction wished
+/* Changes the direction of a boat */
 void change_direction(boat *my_boat, direction dir)
 {
     my_boat->d=dir;
 }
 
-// Turn the boat in the left direction
+/* Turns the boat clockwise */
 void turn_right(boat *my_boat)
 {
     my_boat->d=my_boat->d+1;
 }
 
 
-//Change boat speed with saturation outside [0,20]
+/* Changes the speed of the boat */
 void change_speed(boat *my_boat,int speed)
 {
     if (speed<0)
     {
-        my_boat->speed=0;
+        my_boat->speed=0; //0 is the minimum speed
     }
-    else if (speed>20)
+    else if (speed>20) //20 is the maximum speed
     {
-        my_boat->speed=20;
+        my_boat->speed=20; 
     }
     else
     {
@@ -43,11 +43,11 @@ void change_speed(boat *my_boat,int speed)
     }
 }
 
-#ifdef LOCAL_BOAT
-/*Main et Tests*/
+#ifdef LOCAL_BOAT //This definition guarantees that only one main remains in the server/client creation but we can use that one with tests
+/*Main and Tests*/
 int main()
 {
-    //Test Initialisation
+    //Initialization test
     direction dbIni=N;
     boat* bIni = initialize_boat("jean",2,4,dbIni,1);
     int testIni1 = (*(bIni->nom) == 'j');
@@ -58,7 +58,7 @@ int main()
 	int resIni = testIni1 && testIni2 && testIni3 && testIni4 && testIni5;
     printf("Initialization test: %d\n",resIni);
     
-    //Test changing parameters
+    //Changing parameters tests
     turn_right(bIni);
     int testChg1 = ((bIni->d) == E);
 	printf("Turn right test: %d\n",testChg1);
